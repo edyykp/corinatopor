@@ -1,14 +1,14 @@
-import React from 'react';
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import { SocialIcon } from "react-social-icons";
 
-const Social = props => {
+const Social = (props) => {
   const data = useStaticQuery(graphql`
     query SocialQuery {
       allSocialJson {
         edges {
           node {
             name
-            image
             link
           }
         }
@@ -18,7 +18,14 @@ const Social = props => {
   return (
     <div className="social">
       {data.allSocialJson.edges.map(({ node }) => (
-        <a key={node.name} href={node.link} target="blank"><img src={node.image} title={node.name} alt={node.name} /></a>
+        <SocialIcon
+          url={node.link}
+          target="blank"
+          network={node.name}
+          fgColor="#D2D2D5"
+          bgColor="rgba(255, 255, 255, .0)"
+          key={node.name}
+        />
       ))}
     </div>
   );

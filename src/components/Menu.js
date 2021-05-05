@@ -1,9 +1,9 @@
-import React from 'react';
-import { graphql, useStaticQuery, Link } from 'gatsby';
+import React from "react";
+import { graphql, useStaticQuery, Link } from "gatsby";
 
-const Menu = props => {
+const Menu = (props) => {
   const data = useStaticQuery(graphql`
-    query MainMenuQuery {
+    query MainMobileMenuQuery {
       allMainMenuJson {
         edges {
           node {
@@ -16,11 +16,13 @@ const Menu = props => {
     }
   `);
   return (
-    <div id="main-menu" className="main-menu">
+    <div id="main-menu" className={`main-menu ${props.active ? "open" : ""}`}>
       <ul>
         {data.allMainMenuJson.edges.map(({ node }) => (
           <li key={node.name}>
-            <Link to={node.url} activeClassName="active">{node.name}</Link>
+            <Link to={node.url} activeClassName="active">
+              {node.name}
+            </Link>
           </li>
         ))}
       </ul>

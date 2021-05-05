@@ -30,14 +30,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-google-analytics",
-      options: {
-        trackingId: guid || "UA-XXX-1",
-        // Puts tracking script in the head instead of the body
-        head: false,
-      },
-    },
-    {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: ["Playfair+Display:400,700"],

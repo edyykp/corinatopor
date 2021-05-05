@@ -1,13 +1,11 @@
 
 import React from 'react';
-import Seo from '../components/Seo';
-import ContactForm from '../components/ContactForm';
+import SEO from '../components/Seo';
 
 const ContactPage = () => (
   <React.Fragment>
-    <Seo title="Contact" />
+    <SEO title="Contact" />
     <h1>Get in Touch !</h1>
-    <ContactForm />
   </React.Fragment>
 );
 

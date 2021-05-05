@@ -1,0 +1,24 @@
+.hamburger {
+  padding: 10px 0 10px 10px;
+  outline: none;
+  z-index: 30;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    background: $primary;
+  }
+  .hamburger-inner::after {
+    width: 100%;
+    right: 0;
+  }
+  &.is-active {
+    .hamburger-inner::after {
+      width: inherit;
+      right: unset;
+    }
+  }
+}

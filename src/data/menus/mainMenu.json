@@ -1,0 +1,27 @@
+[
+    {
+        "name": "ABOUT ME",
+        "url": "/about/",
+        "weight": 2
+    },
+    {
+        "name": "BLOG",
+        "url": "/blog/",
+        "weight": 3
+    },
+    {
+        "name": "WORK WITH ME",
+        "url": "/workwithme/",
+        "weight": 4
+    },
+    {
+        "name": "SHOP",
+        "url": "/shop/",
+        "weight": 5
+    },
+    {
+        "name": "CONTACT",
+        "url": "/contact/",
+        "weight": 5
+    }
+]

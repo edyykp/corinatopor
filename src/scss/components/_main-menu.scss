@@ -1,0 +1,81 @@
+.main-menu {
+  display: none;
+  @include media-breakpoint-up(xl) {
+    display: flex;
+  }
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-left: 200px;
+  opacity: 0;
+  transition: opacity 0.35s, visibility 0.35s, height 0.35s;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &.open {
+    opacity: 0.9;
+    visibility: visible;
+    z-index: 20;
+    li {
+      animation: fadeInRight 0.5s ease forwards;
+      animation-delay: 0.1s;
+      &:nth-of-type(2) {
+        animation-delay: 0.15s;
+      }
+      &:nth-of-type(3) {
+        animation-delay: 0.2s;
+      }
+      &:nth-of-type(4) {
+        animation-delay: 0.25s;
+      }
+      &:nth-of-type(5) {
+        animation-delay: 0.3s;
+      }
+      &:nth-of-type(6) {
+        animation-delay: 0.35s;
+      }
+    }
+  }
+  ul {
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500px;
+    font-family: $font-family-base;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 0;
+    li {
+      display: inline-block;
+      position: relative;
+      opacity: 0;
+      padding-left: 30px;
+      padding-right: 30px;
+      a {
+        display: block;
+        position: relative;
+        color: black;
+        text-decoration: none;
+        overflow: hidden;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    left: 20%;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}
+.lock-scroll {
+  overflow: hidden;
+}

@@ -1,0 +1,30 @@
+.button {
+  white-space: nowrap;
+  display: inline-block;
+  height: 40px;
+  width: 180px;
+  line-height: 40px;
+  padding: 0 14px;
+  //box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 35px;
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.35px;
+  color: #ffffff;
+  background: #1e5eb0;
+  text-decoration: none;
+  text-align: center;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+  &:hover {
+    color: #ffffff;
+    background-color: lighten(#1e5eb0, 10%);
+    transform: translateY(-1px);
+    //box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+  }
+
+  span {
+    color: white;
+  }
+}

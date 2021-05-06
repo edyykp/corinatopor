@@ -4,7 +4,8 @@ date: 2018-11-28T15:15:34+10:00
 featured: true
 draft: false
 weight: 4
-image: "/images/austin-distel-nGc5RT2HmF0-unsplash.jpg"
+image: ../images/austin-distel-nGc5RT2HmF0-unsplash.jpg
+slug: "mergers"
 ---
 
 Lorem markdownum aequalis strigis. Saetigeri iubeas, vultu huic alvum nondum

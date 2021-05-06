@@ -1,6 +1,6 @@
 ---
 title: "Home"
-intro_image: "/images/intro.jpeg"
+intro_image: "./images/intro.jpeg"
 intro_image_absolute: true
 intro_image_hide_on_mobile: true
 ---

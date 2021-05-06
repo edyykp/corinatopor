@@ -8,6 +8,8 @@ module.exports = {
     "gatsby-transformer-json",
     "gatsby-transformer-remark",
     "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -27,6 +29,13 @@ module.exports = {
       options: {
         path: `${__dirname}/src/data`,
         name: "data",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/src/content/images`,
+        name: "images",
       },
     },
     {

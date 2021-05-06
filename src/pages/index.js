@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Helmet from "react-helmet";
 import Seo from "../components/Seo";
 import Layout from "../components/Layout";
 import { Card } from "react-bootstrap";
 import Social from "../components/Social";
+import BackgroundImage from "gatsby-background-image";
+import Img from "gatsby-image";
 
 const Home = (props) => {
   const [loaded, setLoaded] = useState(6);
@@ -12,15 +14,11 @@ const Home = (props) => {
   const intro = props.data.intro;
   const site = props.data.site.siteMetadata;
   const services = props.data.services.edges;
-
-  const [email, setEmail] = useState("");
-
-  const subscribe = () => {
-    console.log("subscribed");
-  };
-
+  const intro_image = props.data.intro_image.childImageSharp.fluid;
+  const image1 = props.data.image1.childImageSharp.fluid;
+  const image2 = props.data.image2.childImageSharp.fluid;
   return (
-    <Layout bodyClass="page-home">
+    <Layout bodyClass="page-home" image1={image1} image2={image2}>
       <Seo title={site.title} />
       <Helmet>
         <meta
@@ -30,18 +28,20 @@ const Home = (props) => {
       </Helmet>
 
       <div className="intro">
-        <div className="container introContainer">
-          <div className="row justify-content-start">
-            <div className="col-12 col-md-7 col-lg-9 order-2 order-md-1">
-              <div dangerouslySetInnerHTML={{ __html: intro.html }} />
-              <div className="call-box-bottom">
-                <a className="button" href="http://localhost:8000/">
-                  <span>Read more</span>
-                </a>
+        <BackgroundImage fluid={intro_image}>
+          <div className="container introContainer">
+            <div className="row justify-content-start">
+              <div className="col-12 col-md-7 col-lg-9 order-2 order-md-1">
+                <div dangerouslySetInnerHTML={{ __html: intro.html }} />
+                <div className="call-box-bottom">
+                  <a className="button" href="http://localhost:8000/">
+                    <span>Read more</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </BackgroundImage>
       </div>
 
       <div className="articles">
@@ -51,19 +51,23 @@ const Home = (props) => {
               .filter(({ node }, index) => index < loaded)
               .map(({ node }, index) =>
                 index % 4 === 0 || index % 4 === 3 ? (
-                  <div key={node.id} className="col-12 col-md-7">
+                  <div className="col-12 col-md-7" key={node.id}>
                     <div className="article-summary">
                       <Card>
-                        <Card.Img
+                        <Img
                           variant="top"
-                          src={node.frontmatter.image}
+                          fluid={node.frontmatter.image.childImageSharp.fluid}
                           className="avatar"
                         />
                         <Card.Body className="content">
                           <div className="row">
-                            <Card.Title className="title">
-                              {node.frontmatter.title}
-                            </Card.Title>
+                            <Link
+                              to={"/content/services/" + node.frontmatter.slug}
+                            >
+                              <Card.Title className="title">
+                                {node.frontmatter.title}
+                              </Card.Title>
+                            </Link>
                           </div>
                           <div className="row">
                             <Card.Text className="excerpt">
@@ -79,18 +83,22 @@ const Home = (props) => {
                     </div>
                   </div>
                 ) : (
-                  <div key={node.id} className="col-12 col-md-5">
+                  <div className="col-12 col-md-5" key={node.id}>
                     <div className="article-summary">
-                      <Card>
-                        <Card.Img
+                      <Card style={{ width: "100%" }}>
+                        <Img
                           variant="top"
-                          src={node.frontmatter.image}
+                          fluid={node.frontmatter.image.childImageSharp.fluid}
                           className="avatar"
                         />
                         <Card.Body className="content">
-                          <Card.Title className="title">
-                            {node.frontmatter.title}
-                          </Card.Title>
+                          <Link
+                            to={"/content/services/" + node.frontmatter.slug}
+                          >
+                            <Card.Title className="title">
+                              {node.frontmatter.title}
+                            </Card.Title>
+                          </Link>
                           <div className="bottom-sm">
                             <p className="date-sm">{node.frontmatter.date}</p>
                             <Social />
@@ -114,42 +122,6 @@ const Home = (props) => {
           </div>
         </div>
       </div>
-
-      <div className="call-to-action">
-        <div className="container pt-6 pb-6 pt-md-10 pb-md-10 call-to-action-container">
-          <div className="row justify-content-center">
-            <div className="col-md-2 col-md-offset-3">
-              <img
-                src="/images/Frame-1.png"
-                alt="jumping-woman"
-                className="image1"
-              />
-            </div>
-            <div className="col-md-8 col-md-offset-3 mid-col">
-              <h3>Join our email list and get notified about new content</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Ultrices dui scelerisque metus, cras. Massa lacus massa risus
-                id. Augue morbi metus ipsum ipsum pellentesque sagittis
-              </p>
-              <form onSubmit={subscribe}>
-                <input
-                  placeholder="your@email.com"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit" className="button">
-                  Subscribe
-                </button>
-              </form>
-            </div>
-            <div className="col-md-2 col-md-offset-3 last-col">
-              <img src="/images/Frame.png" alt="shelter" className="image2" />
-            </div>
-          </div>
-        </div>
-      </div>
     </Layout>
   );
 };
@@ -166,7 +138,14 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "DD MMMM YYYY")
-            image
+            image {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            slug
           }
           excerpt
         }
@@ -176,11 +155,17 @@ export const query = graphql`
     intro: markdownRemark(fileAbsolutePath: { regex: "/content/index.md/" }) {
       html
       frontmatter {
-        image
         intro_image
         intro_image_absolute
         intro_image_hide_on_mobile
         title
+      }
+    }
+    intro_image: file(relativePath: { eq: "images/intro.jpeg" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
       }
     }
     features: allFeaturesJson {
@@ -196,6 +181,20 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    image1: file(relativePath: { eq: "images/Frame-1.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    image2: file(relativePath: { eq: "images/Frame.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
       }
     }
   }

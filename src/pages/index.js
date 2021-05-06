@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import Seo from "../components/Seo";
 import Layout from "../components/Layout";
@@ -7,6 +7,8 @@ import { Card } from "react-bootstrap";
 import Social from "../components/Social";
 
 const Home = (props) => {
+  const [loaded, setLoaded] = useState(6);
+
   const intro = props.data.intro;
   const site = props.data.site.siteMetadata;
   const services = props.data.services.edges;
@@ -16,6 +18,7 @@ const Home = (props) => {
   const subscribe = () => {
     console.log("subscribed");
   };
+
   return (
     <Layout bodyClass="page-home">
       <Seo title={site.title} />
@@ -44,64 +47,69 @@ const Home = (props) => {
       <div className="articles">
         <div className="container pt-6 pb-6 pb-md-10">
           <div className="row justify-content-start">
-            {services.map(({ node }, index) =>
-              index % 4 === 0 || index % 4 === 3 ? (
-                <div key={node.id} className="col-12 col-md-7">
-                  <div className="article-summary">
-                    <Card>
-                      <Card.Img
-                        variant="top"
-                        src="/images/intro.jpeg"
-                        className="avatar"
-                      />
-                      <Card.Body className="content">
-                        <div className="row">
+            {services
+              .filter(({ node }, index) => index < loaded)
+              .map(({ node }, index) =>
+                index % 4 === 0 || index % 4 === 3 ? (
+                  <div key={node.id} className="col-12 col-md-7">
+                    <div className="article-summary">
+                      <Card>
+                        <Card.Img
+                          variant="top"
+                          src="/images/intro.jpeg"
+                          className="avatar"
+                        />
+                        <Card.Body className="content">
+                          <div className="row">
+                            <Card.Title className="title">
+                              {node.frontmatter.title}
+                            </Card.Title>
+                          </div>
+                          <div className="row">
+                            <Card.Text className="excerpt">
+                              {node.excerpt}
+                            </Card.Text>
+                          </div>
+                          <div className="row justify-content-between">
+                            <p className="date">{node.frontmatter.date}</p>
+                            <Social />
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  </div>
+                ) : (
+                  <div key={node.id} className="col-12 col-md-5">
+                    <div className="article-summary">
+                      <Card>
+                        <Card.Img
+                          variant="top"
+                          src="/images/intro.jpeg"
+                          className="avatar"
+                        />
+                        <Card.Body className="content">
                           <Card.Title className="title">
                             {node.frontmatter.title}
                           </Card.Title>
-                        </div>
-                        <div className="row">
-                          <Card.Text className="excerpt">
-                            {node.excerpt}
-                          </Card.Text>
-                        </div>
-                        <div className="row justify-content-between">
-                          <p className="date">{node.frontmatter.date}</p>
-                          <Social />
-                        </div>
-                      </Card.Body>
-                    </Card>
+                          <div className="bottom-sm">
+                            <p className="date-sm">{node.frontmatter.date}</p>
+                            <Social />
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div key={node.id} className="col-12 col-md-5">
-                  <div className="article-summary">
-                    <Card>
-                      <Card.Img
-                        variant="top"
-                        src="/images/intro.jpeg"
-                        className="avatar"
-                      />
-                      <Card.Body className="content">
-                        <Card.Title className="title">
-                          {node.frontmatter.title}
-                        </Card.Title>
-                        <div className="bottom-sm">
-                          <p className="date-sm">{node.frontmatter.date}</p>
-                          <Social />
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                </div>
-              )
-            )}
+                )
+              )}
           </div>
           <div className="row justify-content-center">
             <div className="col-auto">
-              <Link className="button button-primary" to="/services/">
+              <button
+                className="button button-primary"
+                onClick={() => setLoaded(loaded + 6)}
+              >
                 View more
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -151,7 +159,6 @@ export const query = graphql`
     services: allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/services/.*/" } }
       sort: { fields: [frontmatter___weight], order: ASC }
-      limit: 6
     ) {
       edges {
         node {
@@ -164,6 +171,7 @@ export const query = graphql`
         }
       }
     }
+
     intro: markdownRemark(fileAbsolutePath: { regex: "/content/index.md/" }) {
       html
       frontmatter {
@@ -191,5 +199,4 @@ export const query = graphql`
     }
   }
 `;
-
 export default Home;

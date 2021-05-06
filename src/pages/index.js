@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { graphql, Link } from "gatsby";
 import Helmet from "react-helmet";
 import Seo from "../components/Seo";
@@ -8,8 +8,12 @@ const Home = (props) => {
   const intro = props.data.intro;
   const site = props.data.site.siteMetadata;
   const services = props.data.services.edges;
-  const features = props.data.features.edges;
 
+  const [email, setEmail] = useState("");
+
+  const subscribe = () => {
+    console.log("subscribed");
+  };
   return (
     <Layout bodyClass="page-home">
       <Seo title={site.title} />
@@ -17,7 +21,7 @@ const Home = (props) => {
         <meta
           name="description"
           content="Small Business Theme. Multiple content types using Markdown and JSON sources. Responsive design and SCSS. This is a beautiful and artfully designed starting theme."
-      />
+        />
       </Helmet>
 
       <div className="intro">
@@ -36,15 +40,14 @@ const Home = (props) => {
       </div>
 
       {services.length > 0 && (
-        <div className="strip">
+        <div className="articles">
           <div className="container pt-6 pb-6 pb-md-10">
             <div className="row justify-content-start">
               {services.map(({ node }) => (
                 <div key={node.id} className="col-12 col-md-4 mb-1">
                   <div className="service service-summary">
                     <div className="service-content">
-                      <h2 className="service-title">
-                      </h2>
+                      <h2 className="service-title">HELLO</h2>
                       <p>{node.excerpt}</p>
                     </div>
                   </div>
@@ -62,27 +65,41 @@ const Home = (props) => {
         </div>
       )}
 
-      {features.length > 0 && (
-        <div className="strip strip-grey">
-          <div className="container pt-6 pb-6 pt-md-10 pb-md-10">
-            <div className="row justify-content-center">
-              {features.map(({ node }) => (
-                <div key={node.id} className="col-12 col-md-6 col-lg-4 mb-2">
-                  <div className="feature">
-                    {node.image && (
-                      <div className="feature-image">
-                        <img src={node.image} alt="blank"/>
-                      </div>
-                    )}
-                    <h2 className="feature-title">{node.title}</h2>
-                    <div className="feature-content">{node.description}</div>
-                  </div>
-                </div>
-              ))}
+      <div className="call-to-action">
+        <div className="container pt-6 pb-6 pt-md-10 pb-md-10 call-to-action-container">
+          <div className="row justify-content-center">
+            <div className="col-md-2 col-md-offset-3">
+              <img
+                src="/images/Frame-1.png"
+                alt="jumping-woman"
+                className="image1"
+              />
+            </div>
+            <div className="col-md-8 col-md-offset-3 mid-col">
+              <h3>Join our email list and get notified about new content</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Ultrices dui scelerisque metus, cras. Massa lacus massa risus
+                id. Augue morbi metus ipsum ipsum pellentesque sagittis
+              </p>
+              <form onSubmit={subscribe}>
+                <input
+                  placeholder="your@email.com"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button type="submit" className="button">
+                  Subscribe
+                </button>
+              </form>
+            </div>
+            <div className="col-md-2 col-md-offset-3 last-col">
+              <img src="/images/Frame.png" alt="shelter" className="image2" />
             </div>
           </div>
         </div>
-      )}
+      </div>
     </Layout>
   );
 };

@@ -1,6 +1,10 @@
 .intro {
   display: flex;
-  background: linear-gradient(180deg, #fbecef 80%, #ffffff 20%);
+  background: linear-gradient(
+    180deg,
+    #fbecef 80%,
+    rgba(255, 255, 255, 0.7) 20%
+  );
   justify-content: flex-start;
   align-items: center;
   padding-top: 60px;

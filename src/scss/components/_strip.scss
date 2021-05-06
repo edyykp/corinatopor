@@ -6,7 +6,7 @@
   background-color: white;
 }
 .strip-grey {
-  background-color: $white-offset;
+  background: linear-gradient(180deg, #ffffff 20%, #fbecef 80%);
 }
 .strip-diagonal {
   transform: skewY(5deg);

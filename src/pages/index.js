@@ -3,6 +3,8 @@ import { graphql, Link } from "gatsby";
 import Helmet from "react-helmet";
 import Seo from "../components/Seo";
 import Layout from "../components/Layout";
+import { Card } from "react-bootstrap";
+import Social from "../components/Social";
 
 const Home = (props) => {
   const intro = props.data.intro;
@@ -39,31 +41,71 @@ const Home = (props) => {
         </div>
       </div>
 
-      {services.length > 0 && (
-        <div className="articles">
-          <div className="container pt-6 pb-6 pb-md-10">
-            <div className="row justify-content-start">
-              {services.map(({ node }) => (
-                <div key={node.id} className="col-12 col-md-4 mb-1">
-                  <div className="service service-summary">
-                    <div className="service-content">
-                      <h2 className="service-title">HELLO</h2>
-                      <p>{node.excerpt}</p>
-                    </div>
+      <div className="articles">
+        <div className="container pt-6 pb-6 pb-md-10">
+          <div className="row justify-content-start">
+            {services.map(({ node }, index) =>
+              index % 4 === 0 || index % 4 === 3 ? (
+                <div key={node.id} className="col-12 col-md-7">
+                  <div className="article-summary">
+                    <Card>
+                      <Card.Img
+                        variant="top"
+                        src="/images/intro.jpeg"
+                        className="avatar"
+                      />
+                      <Card.Body className="content">
+                        <div className="row">
+                          <Card.Title className="title">
+                            {node.frontmatter.title}
+                          </Card.Title>
+                        </div>
+                        <div className="row">
+                          <Card.Text className="excerpt">
+                            {node.excerpt}
+                          </Card.Text>
+                        </div>
+                        <div className="row justify-content-between">
+                          <p className="date">{node.frontmatter.date}</p>
+                          <Social />
+                        </div>
+                      </Card.Body>
+                    </Card>
                   </div>
                 </div>
-              ))}
-            </div>
-            <div className="row justify-content-center">
-              <div className="col-auto">
-                <Link className="button button-primary" to="/services/">
-                  View All Services
-                </Link>
-              </div>
+              ) : (
+                <div key={node.id} className="col-12 col-md-5">
+                  <div className="article-summary">
+                    <Card>
+                      <Card.Img
+                        variant="top"
+                        src="/images/intro.jpeg"
+                        className="avatar"
+                      />
+                      <Card.Body className="content">
+                        <Card.Title className="title">
+                          {node.frontmatter.title}
+                        </Card.Title>
+                        <div className="bottom-sm">
+                          <p className="date-sm">{node.frontmatter.date}</p>
+                          <Social />
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-auto">
+              <Link className="button button-primary" to="/services/">
+                View more
+              </Link>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       <div className="call-to-action">
         <div className="container pt-6 pb-6 pt-md-10 pb-md-10 call-to-action-container">

@@ -25,6 +25,7 @@ const Social = (props) => {
           fgColor="#D2D2D5"
           bgColor="rgba(255, 255, 255, .0)"
           key={node.name}
+          style={{ height: 35, width: 35 }}
         />
       ))}
     </div>

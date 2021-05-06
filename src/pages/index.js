@@ -56,7 +56,7 @@ const Home = (props) => {
                       <Card>
                         <Card.Img
                           variant="top"
-                          src="/images/intro.jpeg"
+                          src={node.frontmatter.image}
                           className="avatar"
                         />
                         <Card.Body className="content">
@@ -84,7 +84,7 @@ const Home = (props) => {
                       <Card>
                         <Card.Img
                           variant="top"
-                          src="/images/intro.jpeg"
+                          src={node.frontmatter.image}
                           className="avatar"
                         />
                         <Card.Body className="content">
@@ -166,6 +166,7 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "DD MMMM YYYY")
+            image
           }
           excerpt
         }

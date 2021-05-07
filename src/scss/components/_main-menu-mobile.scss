@@ -1,4 +1,10 @@
 .main-menu-mobile {
+  @media screen and(min-width: 1300px) {
+    display: none;
+  }
+  @media screen and (max-width: 1300px) {
+    display: initial;
+  }
   position: fixed;
   background: white;
   color: black;

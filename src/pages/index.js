@@ -5,21 +5,15 @@ import Seo from "../components/Seo";
 import Layout from "../components/Layout";
 import { Card } from "react-bootstrap";
 import Social from "../components/Social";
-import BackgroundImage from "gatsby-background-image";
 import Img from "gatsby-image";
 
 const Home = (props) => {
   const [loaded, setLoaded] = useState(6);
 
-  const intro = props.data.intro;
-  const site = props.data.site.siteMetadata;
   const services = props.data.services.edges;
-  const intro_image = props.data.intro_image.childImageSharp.fluid;
-  const image1 = props.data.image1.childImageSharp.fluid;
-  const image2 = props.data.image2.childImageSharp.fluid;
   return (
-    <Layout bodyClass="page-home" image1={image1} image2={image2}>
-      <Seo title={site.title} />
+    <Layout bodyClass="page-home">
+      <Seo />
       <Helmet>
         <meta
           name="description"
@@ -28,20 +22,30 @@ const Home = (props) => {
       </Helmet>
 
       <div className="intro">
-        <BackgroundImage fluid={intro_image}>
-          <div className="container introContainer">
-            <div className="row justify-content-start">
-              <div className="col-12 col-md-7 col-lg-9 order-2 order-md-1">
-                <div dangerouslySetInnerHTML={{ __html: intro.html }} />
-                <div className="call-box-bottom">
-                  <a className="button" href="http://localhost:8000/">
-                    <span>Read more</span>
-                  </a>
-                </div>
+        <div className="container introContainer">
+          <div className="row justify-content-start">
+            <div className="col-12 col-md-7 col-lg-9 order-2 order-md-1">
+              <h1>
+                Welcome to Corina, the simplest way to start publishing with
+                Gatsby.
+              </h1>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Faucibus praesent nibh suscipit nisl quis. Tempus, nullam
+                fermentum porttitor nisl, natoque pharetra. Amet tincidunt nunc
+                interdum et suspendisse elementum faucibus vitae. Pellentesque
+                quisque ac diam pellentesque laoreet aliquet eu. Iaculis odio
+                eleifend mattis blandit scelerisque et pellentesque. Ut
+                consequat, purus
+              </p>
+              <div className="call-box-bottom">
+                <a className="button" href="http://localhost:8000/">
+                  <span>Read more</span>
+                </a>
               </div>
             </div>
           </div>
-        </BackgroundImage>
+        </div>
       </div>
 
       <div className="articles">
@@ -61,9 +65,7 @@ const Home = (props) => {
                         />
                         <Card.Body className="content">
                           <div className="row">
-                            <Link
-                              to={"/content/services/" + node.frontmatter.slug}
-                            >
+                            <Link to={"/articles/" + node.frontmatter.slug}>
                               <Card.Title className="title">
                                 {node.frontmatter.title}
                               </Card.Title>
@@ -92,9 +94,7 @@ const Home = (props) => {
                           className="avatar"
                         />
                         <Card.Body className="content">
-                          <Link
-                            to={"/content/services/" + node.frontmatter.slug}
-                          >
+                          <Link to={"/articles/" + node.frontmatter.slug}>
                             <Card.Title className="title">
                               {node.frontmatter.title}
                             </Card.Title>
@@ -129,7 +129,7 @@ const Home = (props) => {
 export const query = graphql`
   query {
     services: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/services/.*/" } }
+      filter: { fileAbsolutePath: { regex: "/articles/.*/" } }
       sort: { fields: [frontmatter___weight], order: ASC }
     ) {
       edges {
@@ -148,52 +148,6 @@ export const query = graphql`
             slug
           }
           excerpt
-        }
-      }
-    }
-
-    intro: markdownRemark(fileAbsolutePath: { regex: "/content/index.md/" }) {
-      html
-      frontmatter {
-        intro_image
-        intro_image_absolute
-        intro_image_hide_on_mobile
-        title
-      }
-    }
-    intro_image: file(relativePath: { eq: "images/intro.jpeg" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    features: allFeaturesJson {
-      edges {
-        node {
-          id
-          title
-          description
-          image
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    image1: file(relativePath: { eq: "images/Frame-1.png" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    image2: file(relativePath: { eq: "images/Frame.png" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
         }
       }
     }

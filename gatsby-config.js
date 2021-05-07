@@ -1,4 +1,7 @@
 module.exports = {
+  flags: {
+    PARALLEL_SOURCING: true,
+  },
   siteMetadata: {
     title: "Corina Topor",
     description: "Health Coach",
@@ -13,7 +16,7 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: `${__dirname}/src/content`,
+        path: `${__dirname}/src/articles`,
         name: "content",
       },
     },
@@ -34,7 +37,7 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: `${__dirname}/src/content/images`,
+        path: `${__dirname}/src/images`,
         name: "images",
       },
     },

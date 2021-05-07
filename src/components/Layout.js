@@ -4,7 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import SubFooter from "./SubFooter";
 import "../scss/style.scss";
-import Img from "gatsby-image";
+import image1 from "../images/Frame-1.png";
+import image2 from "../images/Frame.png";
 
 const Layout = (props) => {
   const [email, setEmail] = useState("");
@@ -23,11 +24,7 @@ const Layout = (props) => {
           <div className="container pt-6 pb-6 pt-md-10 pb-md-10 call-to-action-container">
             <div className="row justify-content-center">
               <div className="col-md-2 col-md-offset-3">
-                <Img
-                  fluid={props.image1}
-                  alt="jumping-woman"
-                  className="image1"
-                />
+                <img src={image1} alt="jumping-woman" className="image1" />
               </div>
               <div className="col-md-8 col-md-offset-3 mid-col">
                 <h3>Join our email list and get notified about new content</h3>
@@ -49,7 +46,7 @@ const Layout = (props) => {
                 </form>
               </div>
               <div className="col-md-2 col-md-offset-3">
-                <Img fluid={props.image2} alt="shelter" className="image2" />
+                <img src={image2} alt="shelter" className="image2" />
               </div>
             </div>
           </div>

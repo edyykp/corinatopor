@@ -23,7 +23,7 @@ class Header extends React.Component {
       <div className="header">
         <div className="container">
           <div className="row">
-            <div className="col">
+            <div className="col-8 col-lg-6 col-sm-8">
               <div className="logo">
                 <Link to="/">
                   <h1>Corina Topor</h1>
@@ -32,7 +32,7 @@ class Header extends React.Component {
               </div>
             </div>
             <div
-              className="col"
+              className="col-4 col-lg-6 col-sm-4"
               style={{ justifyContent: "flex-end", display: "flex" }}
             >
               <Menu active={this.state.menuActive} />

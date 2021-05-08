@@ -22,15 +22,24 @@ class Header extends React.Component {
     return (
       <div className="header">
         <div className="container">
-          <div className="logo">
-            <Link to="/">
-              <h1>Corina Topor</h1>
-              <p>HEALTH COACH</p>
-            </Link>
+          <div className="row">
+            <div className="col">
+              <div className="logo">
+                <Link to="/">
+                  <h1>Corina Topor</h1>
+                  <p>HEALTH COACH</p>
+                </Link>
+              </div>
+            </div>
+            <div
+              className="col"
+              style={{ justifyContent: "flex-end", display: "flex" }}
+            >
+              <Menu active={this.state.menuActive} />
+              <MenuMobile active={this.state.menuActive} />
+              <Hamburger toggleMenu={this.toggleMenu} />
+            </div>
           </div>
-          <Menu active={this.state.menuActive} />
-          <MenuMobile active={this.state.menuActive} />
-          <Hamburger toggleMenu={this.toggleMenu} />
         </div>
       </div>
     );

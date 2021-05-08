@@ -8,18 +8,6 @@ const Menu = (props) => {
         <li>
           <Link to="/about">ABOUT ME</Link>
         </li>
-        <li>
-          <Link to="/about">BLOG</Link>
-        </li>
-        <li>
-          <Link to="/about">WORK WITH ME</Link>
-        </li>
-        <li>
-          <Link to="/about">SHOP</Link>
-        </li>
-        <li>
-          <Link to="/about">CONTACT</Link>
-        </li>
       </ul>
     </div>
   );

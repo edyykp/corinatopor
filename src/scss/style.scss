@@ -14,7 +14,7 @@ $link-hover-decoration: underline;
 
 // Fonts
 $font-family-base: "Montserrat";
-$font-family-heading: "Playfair Display", serif, -apple-system;
+$font-family-heading: "Montserrat";
 
 // Footer
 $footer-background-color: $primary;
@@ -32,6 +32,7 @@ $sub-footer-text-color: $white;
 @import "libraries/hamburgers/hamburgers";
 
 // Components
+@import "components/header-article";
 @import "components/type";
 @import "components/call-to-action";
 @import "components/articles";

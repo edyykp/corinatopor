@@ -1,0 +1,80 @@
+.header-article {
+  font-family: $font-family-base;
+  background: linear-gradient(
+    180deg,
+    #fbecef 80%,
+    rgba(255, 255, 255, 0.7) 20%
+  );
+
+  h4 {
+    font-size: 15px;
+  }
+  p {
+    margin-left: -15px;
+    color: #08080b, 15%;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  h4 {
+    margin-left: -15px;
+    line-height: 5px;
+  }
+  .img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .row-avatar {
+      margin-left: 180px;
+    }
+  }
+
+  .wrapper {
+    position: relative;
+    margin-top: 25px;
+  }
+
+  @media screen and (min-width: 992px) {
+    .author {
+      float: right;
+      width: 94%;
+    }
+    .avatar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6%;
+    }
+  }
+
+  @media screen and (max-width: 992px) and (min-width: 600px) {
+    .author {
+      float: right;
+      width: 92%;
+    }
+    .avatar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .author {
+      float: right;
+      width: 86%;
+    }
+    .avatar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 14%;
+    }
+  }
+}

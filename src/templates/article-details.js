@@ -1,50 +1,78 @@
-import React, { useState } from "react";
-import { graphql, Link } from "gatsby";
+import React from "react";
 import Layout from "../components/Layout";
+import { graphql, Link } from "gatsby";
+import Img from "gatsby-image";
+import avatar from "../images/avatar.png";
 import { Card } from "react-bootstrap";
 import Social from "../components/Social";
-import Img from "gatsby-image";
 
-const Home = (props) => {
-  const [loaded, setLoaded] = useState(6);
-
-  const services = props.data.services.edges;
+const ArticleDetails = ({ data }) => {
+  const { html } = data.markdownRemark;
+  const { title, date, image } = data.markdownRemark.frontmatter;
+  const services = data.services.edges;
   return (
-    <Layout bodyClass="page-home">
-      <div className="intro">
-        <div className="container introContainer">
-          <div className="row justify-content-start">
-            <div className="col-12 col-md-7 col-lg-9 order-2 order-md-1">
-              <h1>
-                Welcome to Corina, the simplest way to start publishing with
-                Gatsby.
-              </h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Faucibus praesent nibh suscipit nisl quis. Tempus, nullam
-                fermentum porttitor nisl, natoque pharetra. Amet tincidunt nunc
-                interdum et suspendisse elementum faucibus vitae. Pellentesque
-                quisque ac diam pellentesque laoreet aliquet eu. Iaculis odio
-                eleifend mattis blandit scelerisque et pellentesque. Ut
-                consequat, purus
-              </p>
-              <div className="call-box-bottom">
-                <a className="button" href="http://localhost:8000/">
-                  <span>Read more</span>
-                </a>
+    <Layout>
+      <div className="header-article">
+        <div className="container">
+          <div className="row row-avatar">
+            <div className="col">
+              <h2>{title}</h2>
+              <div className="wrapper clearfix">
+                <div className="avatar">
+                  <img src={avatar} alt="avatar" className="img" />
+                </div>
+                <div className="author">
+                  <h4>Corina Topor</h4>
+                  <p>{date}</p>
+                </div>
               </div>
             </div>
+          </div>
+          <div className="row-fluid">
+            <Img
+              fluid={image.childImageSharp.fluid}
+              imgStyle={{ borderRadius: 5 }}
+            />
           </div>
         </div>
       </div>
 
-      <div className="articles">
-        <div className="container pt-6 pb-6 pb-md-10">
-          <div className="row justify-content-start">
-            {services
-              .filter(({ node }, index) => index < loaded)
-              .map(({ node }, index) =>
-                index % 4 === 0 || index % 4 === 3 ? (
+      <div className="article-html">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col">
+              <div dangerouslySetInnerHTML={{ __html: html }} />
+            </div>
+          </div>
+          <div className="row justify-content-center info-post-row">
+            <div className="col">
+              <h5>
+                Posted on {date}
+                <br />
+                By Corina Topor, Co-Founder and CEO
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div className="more-articles">
+            <div className="row" style={{ marginTop: 50 }}>
+              <div className="col-12 col-lg-4">
+                <text>More articles from Corina Topor</text>
+              </div>
+              <div className="col-12 col-lg-8">
+                <hr
+                  style={{
+                    borderTop: "1px solid #9B9BA566",
+                  }}
+                />
+              </div>
+            </div>
+            <div className="row" style={{ marginTop: 20 }}>
+              {services.map(({ node }, index) =>
+                index === 0 ? (
                   <div className="col-12 col-md-7" key={node.id}>
                     <div className="article-summary">
                       <Card>
@@ -66,7 +94,10 @@ const Home = (props) => {
                               {node.excerpt}
                             </Card.Text>
                           </div>
-                          <div className="row justify-content-between">
+                          <div
+                            className="row justify-content-between"
+                            style={{ marginTop: 20 }}
+                          >
                             <p className="date">{node.frontmatter.date}</p>
                             <Social />
                           </div>
@@ -99,15 +130,6 @@ const Home = (props) => {
                   </div>
                 )
               )}
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-auto">
-              <button
-                className="button button-primary"
-                onClick={() => setLoaded(loaded + 6)}
-              >
-                View more
-              </button>
             </div>
           </div>
         </div>
@@ -117,10 +139,25 @@ const Home = (props) => {
 };
 
 export const query = graphql`
-  query {
+  query ArticlesPage($slug: String) {
+    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
+      html
+      frontmatter {
+        title
+        date(formatString: "DD MMMM YYYY")
+        image {
+          childImageSharp {
+            fluid(maxWidth: 1000, maxHeight: 400) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
     services: allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/articles/.*/" } }
       sort: { fields: [frontmatter___weight], order: ASC }
+      limit: 2
     ) {
       edges {
         node {
@@ -143,4 +180,5 @@ export const query = graphql`
     }
   }
 `;
-export default Home;
+
+export default ArticleDetails;

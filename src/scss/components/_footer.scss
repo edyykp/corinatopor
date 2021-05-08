@@ -6,7 +6,6 @@
   .footer-inner {
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: flex-start;
     @include media-breakpoint-up(sm) {
       justify-content: center;
@@ -25,10 +24,10 @@
     margin: 0;
     padding: 0;
     li {
-      color: $footer-text-color;
+      color: #d2d2d5;
       font-size: 1rem;
       a {
-        color: $footer-text-color;
+        color: #d2d2d5;
         text-decoration: none;
         padding: 12px 14px 12px 0;
         display: block;

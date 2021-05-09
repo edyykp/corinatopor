@@ -7,7 +7,7 @@ const MenuMobile = (props) => {
       id="main-menu-mobile"
       className={`main-menu-mobile ${props.active ? "open" : ""}`}
     >
-      <ul>
+      <ul style={{ verticalAlign: "center" }}>
         <li>
           <Link to="/about">ABOUT ME</Link>
         </li>

@@ -1,17 +1,16 @@
-
-import React from 'react';
+import React from "react";
 
 class Hamburger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hamburgerActive: false
+      hamburgerActive: false,
     };
   }
 
   handleToggle = () => {
-    this.setState(prevState => ({
-      hamburgerActive: !prevState.hamburgerActive
+    this.setState((prevState) => ({
+      hamburgerActive: !prevState.hamburgerActive,
     }));
     this.props.toggleMenu(this.state.hamburgerActive);
   };
@@ -21,10 +20,11 @@ class Hamburger extends React.Component {
       <button
         id="toggle-main-menu-mobile"
         className={`hamburger hamburger--slider ${
-          this.state.hamburgerActive ? 'is-active' : ''
+          this.state.hamburgerActive ? "is-active" : ""
         }`}
         type="button"
         onClick={this.handleToggle}
+        aria-label="menu"
       >
         <span className="hamburger-box">
           <span className="hamburger-inner" />

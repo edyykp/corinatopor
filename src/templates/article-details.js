@@ -1,8 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import { graphql, Link } from "gatsby";
-import Img from "gatsby-image";
-import avatar from "../images/avatar.png";
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
 import { Card } from "react-bootstrap";
 import Social from "../components/Social";
 
@@ -19,20 +18,26 @@ const ArticleDetails = ({ data }) => {
               <h2>{title}</h2>
               <div className="wrapper clearfix">
                 <div className="avatar">
-                  <img src={avatar} alt="avatar" className="img" />
+                  <StaticImage
+                    src="../images/avatar.png"
+                    alt="avatar"
+                    className="img"
+                  />
                 </div>
                 <div className="author">
-                  <h4>Corina Topor</h4>
+                  <h3>Corina Topor</h3>
                   <p>{date}</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="row-fluid">
-            <Img
-              fluid={image.childImageSharp.fluid}
-              imgStyle={{ borderRadius: 5 }}
-            />
+          <div className="row">
+            <div className="col">
+              <GatsbyImage
+                image={image.childImageSharp.gatsbyImageData}
+                alt="article-image"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -46,11 +51,11 @@ const ArticleDetails = ({ data }) => {
           </div>
           <div className="row justify-content-center info-post-row">
             <div className="col">
-              <h5>
+              <h3>
                 Posted on {date}
                 <br />
                 By Corina Topor, Co-Founder and CEO
-              </h5>
+              </h3>
             </div>
           </div>
         </div>
@@ -60,12 +65,12 @@ const ArticleDetails = ({ data }) => {
           <div className="more-articles">
             <div className="row" style={{ marginTop: 50 }}>
               <div className="col-12 col-lg-4">
-                <text>More articles from Corina Topor</text>
+                <p>More articles from Corina Topor</p>
               </div>
               <div className="col-12 col-lg-8">
                 <hr
                   style={{
-                    borderTop: "1px solid #9B9BA566",
+                    borderTop: "1px solid #383838",
                   }}
                 />
               </div>
@@ -76,25 +81,26 @@ const ArticleDetails = ({ data }) => {
                   <div className="col-12 col-md-7" key={node.id}>
                     <div className="article-summary">
                       <Card>
-                        <Img
+                        <GatsbyImage
                           variant="top"
-                          fluid={node.frontmatter.image.childImageSharp.fluid}
+                          image={
+                            node.frontmatter.image.childImageSharp
+                              .gatsbyImageData
+                          }
                           className="avatar"
+                          alt="article-image"
                         />
-                        <Card.Body className="content">
+                        <Card.Body className="content-article">
                           <Link to={"/" + node.frontmatter.slug}>
-                            <Card.Title className="title">
+                            <Card.Title as="h2" className="title">
                               {node.frontmatter.title}
                             </Card.Title>
                           </Link>
                           <Card.Text className="excerpt">
                             {node.excerpt}
                           </Card.Text>
-                          <div
-                            className="row justify-content-between"
-                            style={{ marginTop: 20 }}
-                          >
-                            <p className="date">{node.frontmatter.date}</p>
+                          <div className="bottom">
+                            <p>{node.frontmatter.date}</p>
                             <Social />
                           </div>
                         </Card.Body>
@@ -105,21 +111,23 @@ const ArticleDetails = ({ data }) => {
                   <div className="col-12 col-md-5" key={node.id}>
                     <div className="article-summary">
                       <Card style={{ width: "100%" }}>
-                        <Img
+                        <GatsbyImage
                           variant="top"
-                          fluid={node.frontmatter.image.childImageSharp.fluid}
+                          image={
+                            node.frontmatter.image.childImageSharp
+                              .gatsbyImageData
+                          }
                           className="avatar"
+                          alt="article-image"
                         />
-                        <Card.Body className="content">
+                        <Card.Body className="content-article">
                           <Link to={"/" + node.frontmatter.slug}>
-                            <Card.Title className="title">
+                            <Card.Title className="title" as="h2">
                               {node.frontmatter.title}
                             </Card.Title>
                           </Link>
-                          <div className="bottom-sm">
-                            <p className="date-sm">{node.frontmatter.date}</p>
-                            <Social />
-                          </div>
+                          <p className="date-sm">{node.frontmatter.date}</p>
+                          <Social />
                         </Card.Body>
                       </Card>
                     </div>
@@ -143,13 +151,12 @@ export const query = graphql`
         date(formatString: "DD MMMM YYYY")
         image {
           childImageSharp {
-            fluid(maxWidth: 1000, maxHeight: 400) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(layout: CONSTRAINED, height: 400, width: 1110)
           }
         }
       }
     }
+
     services: allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/articles/.*/" } }
       sort: { fields: [frontmatter___weight], order: ASC }
@@ -163,14 +170,12 @@ export const query = graphql`
             date(formatString: "DD MMMM YYYY")
             image {
               childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             slug
           }
-          excerpt
+          excerpt(pruneLength: 150)
         }
       }
     }

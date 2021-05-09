@@ -8,7 +8,7 @@ const SubFooter = (props) => {
         className="container"
         style={{
           borderTopWidth: 1,
-          borderColor: "#d2d2d5",
+          borderColor: "#5c5a5a",
           borderStyle: "solid",
           borderBottomWidth: 0,
           borderLeftWidth: 0,

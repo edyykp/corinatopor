@@ -5,34 +5,34 @@ const Social = (props) => {
   return (
     <div className="social">
       <SocialIcon
-        url=""
+        url="https://www.facebook.com/"
         target="blank"
         network="youtube"
-        fgColor="#D2D2D5"
+        fgColor="#5c5a5a"
         bgColor="rgba(255, 255, 255, .0)"
         style={{ height: 35, width: 35 }}
       />
       <SocialIcon
-        url=""
+        url="https://www.facebook.com/"
         target="blank"
         network="twitter"
-        fgColor="#D2D2D5"
+        fgColor="#5c5a5a"
         bgColor="rgba(255, 255, 255, .0)"
         style={{ height: 35, width: 35 }}
       />
       <SocialIcon
-        url=""
+        url="https://www.facebook.com/"
         target="blank"
         network="instagram"
-        fgColor="#D2D2D5"
+        fgColor="#5c5a5a"
         bgColor="rgba(255, 255, 255, .0)"
         style={{ height: 35, width: 35 }}
       />
       <SocialIcon
-        url=""
+        url="https://www.facebook.com/"
         target="blank"
         network="linkedin"
-        fgColor="#D2D2D5"
+        fgColor="#5c5a5a"
         bgColor="rgba(255, 255, 255, .0)"
         style={{ height: 35, width: 35 }}
       />

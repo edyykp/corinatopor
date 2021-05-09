@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import { Card } from "react-bootstrap";
 import Social from "../components/Social";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Home = (props) => {
   const [loaded, setLoaded] = useState(6);
@@ -29,8 +29,8 @@ const Home = (props) => {
                 consequat, purus
               </p>
               <div className="call-box-bottom">
-                <a className="button" href="http://localhost:8000/">
-                  <span>Read more</span>
+                <a className="button" href="http://localhost:8000/about">
+                  <span>About me</span>
                 </a>
               </div>
             </div>
@@ -48,22 +48,26 @@ const Home = (props) => {
                   <div className="col-12 col-md-7" key={node.id}>
                     <div className="article-summary">
                       <Card>
-                        <Img
+                        <GatsbyImage
                           variant="top"
-                          fluid={node.frontmatter.image.childImageSharp.fluid}
+                          image={
+                            node.frontmatter.image.childImageSharp
+                              .gatsbyImageData
+                          }
                           className="avatar"
+                          alt="article-image"
                         />
-                        <Card.Body className="content">
+                        <Card.Body className="content-article">
                           <Link to={"/" + node.frontmatter.slug}>
-                            <Card.Title className="title">
+                            <Card.Title as="h2" className="title">
                               {node.frontmatter.title}
                             </Card.Title>
                           </Link>
                           <Card.Text className="excerpt">
                             {node.excerpt}
                           </Card.Text>
-                          <div className="row justify-content-between">
-                            <p className="date">{node.frontmatter.date}</p>
+                          <div className="bottom">
+                            <p>{node.frontmatter.date}</p>
                             <Social />
                           </div>
                         </Card.Body>
@@ -74,21 +78,26 @@ const Home = (props) => {
                   <div className="col-12 col-md-5" key={node.id}>
                     <div className="article-summary">
                       <Card style={{ width: "100%" }}>
-                        <Img
+                        <GatsbyImage
                           variant="top"
-                          fluid={node.frontmatter.image.childImageSharp.fluid}
+                          image={
+                            node.frontmatter.image.childImageSharp
+                              .gatsbyImageData
+                          }
                           className="avatar"
+                          alt="article-image"
                         />
-                        <Card.Body className="content">
+                        <Card.Body
+                          className="content-article"
+                          style={{ justifyContent: "space-between" }}
+                        >
                           <Link to={"/" + node.frontmatter.slug}>
-                            <Card.Title className="title">
+                            <Card.Title className="title" as="h2">
                               {node.frontmatter.title}
                             </Card.Title>
                           </Link>
-                          <div className="bottom-sm">
-                            <p className="date-sm">{node.frontmatter.date}</p>
-                            <Social />
-                          </div>
+                          <p className="date-sm">{node.frontmatter.date}</p>
+                          <Social />
                         </Card.Body>
                       </Card>
                     </div>
@@ -126,14 +135,12 @@ export const query = graphql`
             date(formatString: "DD MMMM YYYY")
             image {
               childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             slug
           }
-          excerpt
+          excerpt(pruneLength: 150)
         }
       }
     }

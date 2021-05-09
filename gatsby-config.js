@@ -1,7 +1,4 @@
 module.exports = {
-  flags: {
-    PARALLEL_SOURCING: true,
-  },
   siteMetadata: {
     title: "Corina Topor",
     description: "Health Coach",
@@ -12,7 +9,10 @@ module.exports = {
     "gatsby-transformer-remark",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
+    "gatsby-plugin-image",
     "gatsby-transformer-sharp",
+    "gatsby-background-image",
+    "gatsby-plugin-preload-fonts",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -35,10 +35,37 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-fonts`,
+      /* Include plugin */
+      resolve: "gatsby-omni-font-loader",
+
+      /* Plugin options */
       options: {
-        fonts: ["Playfair+Display:400,700"],
-        display: "swap",
+        /* Font loading mode */
+        mode: "async",
+
+        /* Enable font loading listener to handle FOUT */
+        enableListener: true,
+
+        /* Preconnect URL-s. This example is for Google Fonts */
+        preconnect: ["https://fonts.gstatic.com"],
+
+        /* Web fonts. File link should point to font CSS file. */
+        web: [
+          {
+            /* Exact name of the font as defied in @font-face CSS rule */
+            name: "Montserrat",
+            /* URL to the font CSS file with @font-face definition */
+            file:
+              "https://fonts.googleapis.com/css2?family=Montserrat&display=swap",
+          },
+          {
+            /* Exact name of the font as defied in @font-face CSS rule */
+            name: "Esteban",
+            /* URL to the font CSS file with @font-face definition */
+            file:
+              "https://fonts.googleapis.com/css2?family=Esteban&display=swap",
+          },
+        ],
       },
     },
   ],

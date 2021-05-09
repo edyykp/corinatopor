@@ -54,18 +54,14 @@ const Home = (props) => {
                           className="avatar"
                         />
                         <Card.Body className="content">
-                          <div className="row">
-                            <Link to={"/" + node.frontmatter.slug}>
-                              <Card.Title className="title">
-                                {node.frontmatter.title}
-                              </Card.Title>
-                            </Link>
-                          </div>
-                          <div className="row">
-                            <Card.Text className="excerpt">
-                              {node.excerpt}
-                            </Card.Text>
-                          </div>
+                          <Link to={"/" + node.frontmatter.slug}>
+                            <Card.Title className="title">
+                              {node.frontmatter.title}
+                            </Card.Title>
+                          </Link>
+                          <Card.Text className="excerpt">
+                            {node.excerpt}
+                          </Card.Text>
                           <div className="row justify-content-between">
                             <p className="date">{node.frontmatter.date}</p>
                             <Social />
